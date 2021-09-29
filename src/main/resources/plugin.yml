@@ -1,0 +1,19 @@
+name: UltimateTowny
+version: '${version}'
+main: it.flowzz.ultimatetowny.UltimateTownyPlugin
+api-version: 1.16
+depend: [ Vault ]
+softdepend: [ PlaceholderAPI ]
+authors: [ _FlowZz_ ]
+description: Brand new Towny plugin with upgrades and cool features!
+
+commands:
+  town:
+    description: "UltimateTowny root command"
+    aliases:
+      - towny
+      - towns
+      - t
+
+libraries:
+  - com.zaxxer:HikariCP:5.0.0

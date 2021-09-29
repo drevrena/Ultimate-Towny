@@ -1,0 +1,91 @@
+already-in-town: "&7You are already in a town!"
+already-member: "&7%player% is already a member"
+blacklisted-town-name: "&7You cannot use this word as a Town name!"
+cannot-demote-leader: "&7Town leader cannot be demoted!"
+cannot-kick-higher-role: "&7You cannot kick a player with a higher role than yours!"
+cannot-kick-yourself: "&7You cannot kick yourself, use /town leave instead!"
+cannot-promote: "&7%player% cannot be promoted because is already Moderator/Leader"
+coin-gen-upgrade-translation: "Coin Generator Upgrade"
+coins-deposited: "&7%player% deposited %amount% coins!"
+coins-generated: "&7Your town generated %amount% coins in the last 5 minutes"
+coins-withdraw: "&7%player% withdrawed %amount% coins"
+command-help-footer: "&8&m-[------------------]-&r"
+command-help-header: "&8&m-[------&r &fHelp &8&m------]-&r"
+command-help: "&7• &f&o%syntax%"
+command-not-found: "&7This command does not exist!"
+command-only-player: "&7This command can be executed only in-game"
+experience-upgrade-translation: "Experience Booster Upgrade"
+invalid-amount: "&7Please insert a valid value!"
+invalid-town-name: "&7Please insert a valid Town name (4-16, Alphanumeric)"
+invite-received: "&7You received an invite to %town% by %player%! (Click to Join)"
+leader-cannot-leave: "&7You are the leader of this city! You cannot leave it, use /town disband if you want to leave"
+leader-translation: "leader"
+member-translation: "member"
+members-upgrade-translation: "Member Upgrade"
+moderator-translation: "officer"
+money-deposited: "&7%player% deposited %amount%$"
+money-gen-upgrade-translation: "Money Generator Upgrade"
+money-generated: "&7Your town generated %amount%$ in the last 5 minutes"
+money-withdraw: "&7%player% withdrawed %amount%$"
+no-permission: "&7You don't have enough permission"
+not-enough-coins: "&7You don't have enough coins"
+not-enough-money: "&7You don't have enough money"
+not-enough-town-coins: "&7Your town bank account does not have enough coins!"
+not-enough-town-money: "&7Your town bank account does not have enough money!"
+not-in-town: "&7You are not in a town!"
+not-leader: "&7You are not the Leader of this town"
+not-moderator: "&7You are not Moderator of this town"
+offline-color: "&7"
+online-color: "&a"
+player-already-in-town: "&7%player% already belong to your town!"
+player-demoted: "&7%player% got demoted"
+player-invited: "&7%player% got invited by %sender%"
+player-got-kicked: "&7You got kicked by %sender% from %town%"
+player-joined: "&7%player% joined the town!"
+player-kicked: "&7%player% got kicked by %sender% from %town%"
+player-left: "&7%player% left the town!"
+player-not-found: "&7Cannot find any player with this name!"
+player-not-in-town: "&7This player is not part of your Town!"
+player-promoted: "&7%player% got promoted"
+recruit-cooldown: "&7Recruit command is in cooldown!"
+recruit-message: |
+  &8&m+------------&r&8( #fa9b40T#faa442O#f9ad44W#f9b646N #f8c84aR#f7d04cE#f7d94eC#f6e250R#f6eb52U#f5f454I#f5fd56T &8)&8&m------------+
+  &r
+  &3&l                 #fa9b40&lT#faa442&lo#f9ad44&lw#f9b646&ln: &e&l%town%
+  &7&o          is looking for members, come join them!
+  &r
+  &8&m+---------------------------------------+
+town-already-exist: "&7This town already exists!"
+town-created: "&6%town% &7has just been founded by &e%player%"
+town-disbanded: "&6%town% &7has just been deleted by &e%player%"
+town-invite-expired: "&7Your invite to this town expired!"
+town-left: "&7You left %town%"
+town-max-players: "&7This town is already full!"
+town-not-found: "&7Cannot find any town with this name!"
+town-not-invited: "&7You can't join this town without an invite"
+town-player-hover: |
+  &8&m-[-----------------]-&r
+  &7• &eMoney: &7%money%
+  &7• &eRole: &7%role%
+  &7• &ePlaytime: &7%playtime%
+  &8&m-[-----------------]-
+town-renamed: "&6%old_town% &7got renamed to &6%new_town% &7by &e%player%"
+town-show: |
+  &8&m-[-----------------]-&r
+          &6 %name%
+  &8&m-[-----------------]-&r
+  &7• &eMoney:&7 %money%
+  &7• &eCoins:&7 %coins%
+  &7• &6Leader:&7 %leader%
+  &7• &eModerators:&7 %moderators%
+  &7• &eMembers:&7 %members%
+  &8&m-[-----------------]-
+town-upgrade: "&6%town% &7has just upgraded &e%upgrade% &7to level &e%level% &7by &e%player%"
+townless-placeholder: "/t create"
+upgrade-max-level: "&7This upgrade is already maxed!"
+warp-already-set: "&7Your town already have a warp set, delete it before setting a new one!"
+warp-not-set: "&7This Town has not set a warp location yet!"
+warp-removed: "&7%player% removed the Town warp!"
+warp-set: "&7%player% created a new warp for your Town!"
+warped-to-town: "&7You teleported to &6%town%!"
+wrong-syntax: "&7Wrong command. Try with %syntax%"
