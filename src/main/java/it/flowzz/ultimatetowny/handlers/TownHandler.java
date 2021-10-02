@@ -19,8 +19,8 @@ public class TownHandler {
     private final List<Town> topTowns = Collections.synchronizedList(Lists.newArrayList());
     private final Map<Town, List<TownyPlayer>> topPlaytime = Collections.synchronizedMap(Maps.newHashMap());
 
-    public TownHandler() {
-        Bukkit.getScheduler().runTaskTimerAsynchronously(UltimateTownyPlugin.getInstance(), this::calculateTop, 20, 6000);
+    public TownHandler(UltimateTownyPlugin plugin) {
+        Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this::calculateTop, 20, 6000);
     }
 
     private void calculateTop() {

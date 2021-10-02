@@ -55,7 +55,7 @@ public class TownCreate extends SubCommand {
                     .replace("%player%", player.getName())
             );
             plugin.getEconomy().withdrawPlayer(player, cost);
-            plugin.getTownHandler().getTowns().put(townName, new Town(townName, null, 0, 0, Sets.newHashSet(townyPlayer), Sets.newHashSet()));
+            plugin.getTownHandler().getTowns().put(townName, new Town(townName, null, 0, 0, Sets.newHashSet(townyPlayer), Sets.newHashSet(), Sets.newHashSet()));
         } else {
             sender.sendMessage(Messages.COMMAND_ONLY_PLAYER.getTranslation());
         }

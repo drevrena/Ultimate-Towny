@@ -27,7 +27,7 @@ public class TownWithdraw extends SubCommand {
                 sender.sendMessage(Messages.NOT_IN_TOWN.getTranslation());
                 return;
             }
-            if (townyPlayer.getRole() != Role.LEADER) {
+            if (townyPlayer.getRole().isLessThan(Role.COLEADER)) {
                 sender.sendMessage(Messages.NOT_LEADER.getTranslation());
                 return;
             }

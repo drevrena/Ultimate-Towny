@@ -1,6 +1,5 @@
 package it.flowzz.ultimatetowny.commands.impl.subcommands;
 
-import com.google.common.collect.Sets;
 import it.flowzz.ultimatetowny.commands.SubCommand;
 import it.flowzz.ultimatetowny.enums.Role;
 import it.flowzz.ultimatetowny.lang.Messages;
@@ -37,7 +36,7 @@ public class TownRename extends SubCommand {
                 sender.sendMessage(Messages.NOT_IN_TOWN.getTranslation());
                 return;
             }
-            if (townyPlayer.getRole() != Role.LEADER) {
+            if (townyPlayer.getRole().isLessThan(Role.COLEADER)) {
                 sender.sendMessage(Messages.NOT_LEADER.getTranslation());
                 return;
             }

@@ -2,6 +2,7 @@ package it.flowzz.ultimatetowny.commands.impl.subcommands;
 
 import it.flowzz.ultimatetowny.commands.SubCommand;
 import it.flowzz.ultimatetowny.lang.Messages;
+import it.flowzz.ultimatetowny.models.Placeholder;
 import it.flowzz.ultimatetowny.models.Town;
 import it.flowzz.ultimatetowny.models.TownyPlayer;
 import net.kyori.adventure.text.Component;
@@ -57,10 +58,12 @@ public class TownShow extends SubCommand {
                 Component.text(Messages.TOWN_SHOW.getTranslation()
                                 .replace("%name%", town.getName())
                                 .replace("%money%", String.format("%d", Math.round(town.getMoney())))
-                                .replace("%coins%", String.format("%d", Math.round(town.getCoins()))))
+                                .replace("%coins%", String.format("%d", Math.round(town.getCoins())))
+                                .replace("%rating%", String.format("%.2f", Double.isNaN(town.getAverageRate()) ? 0.0 : town.getAverageRate())))
                         .replaceText(TextReplacementConfig.builder().match("%leader%").replacement(Component.text(town.getLeader().isOnline() ?
                                 Messages.ONLINE_COLOR.getTranslation() + town.getLeader().getName() :
                                 Messages.OFFLINE_COLOR.getTranslation() + town.getLeader().getName()).hoverEvent(getHover(town.getLeader()))).build())
+                        .replaceText(TextReplacementConfig.builder().match("%coleaders%").replacement(formatList(town.getCoLeaders())).build())
                         .replaceText(TextReplacementConfig.builder().match("%moderators%").replacement(formatList(town.getModerators())).build())
                         .replaceText(TextReplacementConfig.builder().match("%members%").replacement(formatList(town.getMembers())).build())
         );

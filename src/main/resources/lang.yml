@@ -1,5 +1,6 @@
 already-in-town: "&7You are already in a town!"
 already-member: "&7%player% is already a member"
+already-rated: "&7You already rated this town!"
 blacklisted-town-name: "&7You cannot use this word as a Town name!"
 cannot-demote-leader: "&7Town leader cannot be demoted!"
 cannot-kick-higher-role: "&7You cannot kick a player with a higher role than yours!"
@@ -9,6 +10,7 @@ coin-gen-upgrade-translation: "Coin Generator Upgrade"
 coins-deposited: "&7%player% deposited %amount% coins!"
 coins-generated: "&7Your town generated %amount% coins in the last 5 minutes"
 coins-withdraw: "&7%player% withdrawed %amount% coins"
+coleader-translation: "co-leader"
 command-help-footer: "&8&m-[------------------]-&r"
 command-help-header: "&8&m-[------&r &fHelp &8&m------]-&r"
 command-help: "&7• &f&o%syntax%"
@@ -28,6 +30,7 @@ money-gen-upgrade-translation: "Money Generator Upgrade"
 money-generated: "&7Your town generated %amount%$ in the last 5 minutes"
 money-withdraw: "&7%player% withdrawed %amount%$"
 no-permission: "&7You don't have enough permission"
+no-rating: "&7You didn't rate this town!"
 not-enough-coins: "&7You don't have enough coins"
 not-enough-money: "&7You don't have enough money"
 not-enough-town-coins: "&7Your town bank account does not have enough coins!"
@@ -38,7 +41,7 @@ not-moderator: "&7You are not Moderator of this town"
 offline-color: "&7"
 online-color: "&a"
 player-already-in-town: "&7%player% already belong to your town!"
-player-demoted: "&7%player% got demoted"
+player-demoted: "&7%player% got demote to %rank%"
 player-invited: "&7%player% got invited by %sender%"
 player-got-kicked: "&7You got kicked by %sender% from %town%"
 player-joined: "&7%player% joined the town!"
@@ -47,6 +50,7 @@ player-left: "&7%player% left the town!"
 player-not-found: "&7Cannot find any player with this name!"
 player-not-in-town: "&7This player is not part of your Town!"
 player-promoted: "&7%player% got promoted"
+rating-removed: "&7You removed your rating from %town%"
 recruit-cooldown: "&7Recruit command is in cooldown!"
 recruit-message: |
   &8&m+------------&r&8( #fa9b40T#faa442O#f9ad44W#f9b646N #f8c84aR#f7d04cE#f7d94eC#f6e250R#f6eb52U#f5f454I#f5fd56T &8)&8&m------------+
@@ -72,11 +76,12 @@ town-player-hover: |
 town-renamed: "&6%old_town% &7got renamed to &6%new_town% &7by &e%player%"
 town-show: |
   &8&m-[-----------------]-&r
-          &6 %name%
+          &6 %name% &e%rating%&6/&e5.0 ★
   &8&m-[-----------------]-&r
   &7• &eMoney:&7 %money%
   &7• &eCoins:&7 %coins%
   &7• &6Leader:&7 %leader%
+  &7• &eCoLeaders:&7 %coleaders%
   &7• &eModerators:&7 %moderators%
   &7• &eMembers:&7 %members%
   &8&m-[-----------------]-

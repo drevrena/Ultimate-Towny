@@ -38,11 +38,11 @@ public class TownPromote extends SubCommand {
                 sender.sendMessage(Messages.NOT_LEADER.getTranslation());
                 return;
             }
-            if (target.getRole() == Role.MODERATOR || target.getRole() == Role.LEADER) {
+            if (target.getRole().isGreaterThan(Role.COLEADER)) {
                 sender.sendMessage(Messages.CANNOT_PROMOTE.getTranslation());
                 return;
             }
-            target.setRole(Role.MODERATOR);
+            target.setRole(target.getRole() == Role.MODERATOR ? Role.COLEADER : Role.MODERATOR);
             broadcast(Messages.PLAYER_PROMOTED.getTranslation().replace("%player%", target.getName()), town.getPlayers());
         } else {
             sender.sendMessage(Messages.COMMAND_ONLY_PLAYER.getTranslation());

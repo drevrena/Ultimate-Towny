@@ -34,7 +34,7 @@ public class TownRecruit extends SubCommand {
                 return;
             }
             String townName = town.getName();
-            if (townyPlayer.getRole() == Role.MEMBER) {
+            if (townyPlayer.getRole().isLessThan(Role.MODERATOR)) {
                 sender.sendMessage(Messages.NOT_MODERATOR.getTranslation());
                 return;
             }

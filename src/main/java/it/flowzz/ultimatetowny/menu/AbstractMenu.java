@@ -1,16 +1,20 @@
 package it.flowzz.ultimatetowny.menu;
 
+import fr.minuskube.inv.content.InventoryProvider;
 import fr.minuskube.inv.content.SlotPos;
 import it.flowzz.ultimatetowny.UltimateTownyPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
-public abstract class AbstractMenu {
+public abstract class AbstractMenu implements InventoryProvider {
 
-    protected FileConfiguration config = UltimateTownyPlugin.getInstance().getConfig();
+    protected final UltimateTownyPlugin plugin;
+
+    protected AbstractMenu(UltimateTownyPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     protected int getIndex(String string) {
         int index;

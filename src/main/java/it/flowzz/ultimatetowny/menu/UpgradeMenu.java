@@ -2,7 +2,6 @@ package it.flowzz.ultimatetowny.menu;
 
 import fr.minuskube.inv.ClickableItem;
 import fr.minuskube.inv.content.InventoryContents;
-import fr.minuskube.inv.content.InventoryProvider;
 import it.flowzz.ultimatetowny.UltimateTownyPlugin;
 import it.flowzz.ultimatetowny.enums.UpgradeType;
 import it.flowzz.ultimatetowny.lang.Messages;
@@ -10,19 +9,22 @@ import it.flowzz.ultimatetowny.models.Placeholder;
 import it.flowzz.ultimatetowny.models.Town;
 import it.flowzz.ultimatetowny.models.Upgrade;
 import it.flowzz.ultimatetowny.utils.ItemStackBuilder;
-import lombok.RequiredArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
-@RequiredArgsConstructor
-public class UpgradeMenu extends AbstractMenu implements InventoryProvider {
+public class UpgradeMenu extends AbstractMenu {
 
     private final Town town;
 
+    public UpgradeMenu(UltimateTownyPlugin plugin, Town town) {
+        super(plugin);
+        this.town = town;
+    }
+
     @Override
     public void init(Player player, InventoryContents contents) {
-        ConfigurationSection itemSection = config.getConfigurationSection("menus.upgrade.items");
+        ConfigurationSection itemSection = plugin.getConfig().getConfigurationSection("menus.upgrade.items");
         for (String slot : itemSection.getKeys(false)) {
             int index = getIndex(slot);
             if (index == -999)
@@ -32,9 +34,9 @@ public class UpgradeMenu extends AbstractMenu implements InventoryProvider {
         contents.set(getSlot(itemSection.getInt("members.slot")),
                 ClickableItem.of(setPlayerSkin(ItemStackBuilder.fromConfig(itemSection.getCurrentPath() + ".members.item",
                                 new Placeholder("%price_money%", UpgradeType.MEMBERS.getMaxLevel() == town.getUpgradeLevel(UpgradeType.MEMBERS) ? "N/A" :
-                                        String.format("%d", UltimateTownyPlugin.getInstance().getConfig().getInt("town.upgrades.members.levels." + (town.getUpgradeLevel(UpgradeType.MEMBERS) + 1) + ".money"))),
+                                        String.format("%d", plugin.getConfig().getInt("town.upgrades.members.levels." + (town.getUpgradeLevel(UpgradeType.MEMBERS) + 1) + ".money"))),
                                 new Placeholder("%price_coins%", UpgradeType.MEMBERS.getMaxLevel() == town.getUpgradeLevel(UpgradeType.MEMBERS) ? "N/A" :
-                                        String.format("%d", UltimateTownyPlugin.getInstance().getConfig().getInt("town.upgrades.members.levels." + (town.getUpgradeLevel(UpgradeType.MEMBERS) + 1) + ".coins"))),
+                                        String.format("%d", plugin.getConfig().getInt("town.upgrades.members.levels." + (town.getUpgradeLevel(UpgradeType.MEMBERS) + 1) + ".coins"))),
                                 new Placeholder("%level%", String.format("%d", town.getUpgradeLevel(UpgradeType.MEMBERS)))), town.getLeader().getName()),
                         event -> {
                             upgrade(player, town, UpgradeType.MEMBERS);
@@ -43,9 +45,9 @@ public class UpgradeMenu extends AbstractMenu implements InventoryProvider {
         contents.set(getSlot(itemSection.getInt("experience.slot")),
                 ClickableItem.of(ItemStackBuilder.fromConfig(itemSection.getCurrentPath() + ".experience.item",
                                 new Placeholder("%price_money%", UpgradeType.EXPERIENCE.getMaxLevel() == town.getUpgradeLevel(UpgradeType.EXPERIENCE) ? "N/A" :
-                                        String.format("%d", UltimateTownyPlugin.getInstance().getConfig().getInt("town.upgrades.experience.levels." + (town.getUpgradeLevel(UpgradeType.EXPERIENCE) + 1) + ".money"))),
+                                        String.format("%d", plugin.getConfig().getInt("town.upgrades.experience.levels." + (town.getUpgradeLevel(UpgradeType.EXPERIENCE) + 1) + ".money"))),
                                 new Placeholder("%price_coins%", UpgradeType.EXPERIENCE.getMaxLevel() == town.getUpgradeLevel(UpgradeType.EXPERIENCE) ? "N/A" :
-                                        String.format("%d", UltimateTownyPlugin.getInstance().getConfig().getInt("town.upgrades.experience.levels." + (town.getUpgradeLevel(UpgradeType.EXPERIENCE) + 1) + ".coins"))),
+                                        String.format("%d", plugin.getConfig().getInt("town.upgrades.experience.levels." + (town.getUpgradeLevel(UpgradeType.EXPERIENCE) + 1) + ".coins"))),
                                 new Placeholder("%level%", String.format("%d", town.getUpgradeLevel(UpgradeType.EXPERIENCE)))),
                         event -> {
                             upgrade(player, town, UpgradeType.EXPERIENCE);
@@ -54,9 +56,9 @@ public class UpgradeMenu extends AbstractMenu implements InventoryProvider {
         contents.set(getSlot(itemSection.getInt("money-gen.slot")),
                 ClickableItem.of(ItemStackBuilder.fromConfig(itemSection.getCurrentPath() + ".money-gen.item",
                                 new Placeholder("%price_money%", UpgradeType.MONEY_GEN.getMaxLevel() == town.getUpgradeLevel(UpgradeType.MONEY_GEN) ? "N/A" :
-                                        String.format("%d", UltimateTownyPlugin.getInstance().getConfig().getInt("town.upgrades.money-gen.levels." + (town.getUpgradeLevel(UpgradeType.MONEY_GEN) + 1) + ".money"))),
+                                        String.format("%d", plugin.getConfig().getInt("town.upgrades.money-gen.levels." + (town.getUpgradeLevel(UpgradeType.MONEY_GEN) + 1) + ".money"))),
                                 new Placeholder("%price_coins%", UpgradeType.MONEY_GEN.getMaxLevel() == town.getUpgradeLevel(UpgradeType.MONEY_GEN) ? "N/A" :
-                                        String.format("%d", UltimateTownyPlugin.getInstance().getConfig().getInt("town.upgrades.money-gen.levels." + (town.getUpgradeLevel(UpgradeType.MONEY_GEN) + 1) + ".coins"))),
+                                        String.format("%d", plugin.getConfig().getInt("town.upgrades.money-gen.levels." + (town.getUpgradeLevel(UpgradeType.MONEY_GEN) + 1) + ".coins"))),
                                 new Placeholder("%level%", String.format("%d", town.getUpgradeLevel(UpgradeType.MONEY_GEN)))),
                         event -> {
                             upgrade(player, town, UpgradeType.MONEY_GEN);
@@ -65,9 +67,9 @@ public class UpgradeMenu extends AbstractMenu implements InventoryProvider {
         contents.set(getSlot(itemSection.getInt("coin-gen.slot")),
                 ClickableItem.of(ItemStackBuilder.fromConfig(itemSection.getCurrentPath() + ".coin-gen.item",
                                 new Placeholder("%price_money%", UpgradeType.COIN_GEN.getMaxLevel() == town.getUpgradeLevel(UpgradeType.COIN_GEN) ? "N/A" :
-                                        String.format("%d", UltimateTownyPlugin.getInstance().getConfig().getInt("town.upgrades.coin-gen.levels." + (town.getUpgradeLevel(UpgradeType.COIN_GEN) + 1) + ".money"))),
+                                        String.format("%d", plugin.getConfig().getInt("town.upgrades.coin-gen.levels." + (town.getUpgradeLevel(UpgradeType.COIN_GEN) + 1) + ".money"))),
                                 new Placeholder("%price_coins%", UpgradeType.COIN_GEN.getMaxLevel() == town.getUpgradeLevel(UpgradeType.COIN_GEN) ? "N/A" :
-                                        String.format("%d", UltimateTownyPlugin.getInstance().getConfig().getInt("town.upgrades.coin-gen.levels." + (town.getUpgradeLevel(UpgradeType.COIN_GEN) + 1) + ".coins"))),
+                                        String.format("%d", plugin.getConfig().getInt("town.upgrades.coin-gen.levels." + (town.getUpgradeLevel(UpgradeType.COIN_GEN) + 1) + ".coins"))),
                                 new Placeholder("%level%", String.format("%d", town.getUpgradeLevel(UpgradeType.COIN_GEN)))),
                         event -> {
                             upgrade(player, town, UpgradeType.COIN_GEN);
@@ -76,7 +78,6 @@ public class UpgradeMenu extends AbstractMenu implements InventoryProvider {
     }
 
     private void upgrade(Player player, Town town, UpgradeType type) {
-        UltimateTownyPlugin plugin = UltimateTownyPlugin.getInstance();
         Upgrade upgrade = town.getUpgrade(type);
         String upgradeName = type.name().toLowerCase().replace("_", "-");
         int currentLevel = upgrade == null ? 0 : upgrade.getLevel();
@@ -115,10 +116,5 @@ public class UpgradeMenu extends AbstractMenu implements InventoryProvider {
             );
         }
         player.closeInventory();
-    }
-
-    @Override
-    public void update(Player player, InventoryContents contents) {
-        //We do not need a dynamic menu
     }
 }

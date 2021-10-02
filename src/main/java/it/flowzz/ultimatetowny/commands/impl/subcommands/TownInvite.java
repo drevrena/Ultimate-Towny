@@ -34,7 +34,7 @@ public class TownInvite extends SubCommand {
                 sender.sendMessage(Messages.NOT_IN_TOWN.getTranslation());
                 return;
             }
-            if (townyPlayer.getRole() == Role.MEMBER) {
+            if (townyPlayer.getRole().isLessThan(Role.MODERATOR)) {
                 sender.sendMessage(Messages.NOT_MODERATOR.getTranslation());
                 return;
             }

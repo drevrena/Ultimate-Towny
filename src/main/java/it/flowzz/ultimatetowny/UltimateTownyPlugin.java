@@ -92,7 +92,7 @@ public final class UltimateTownyPlugin extends JavaPlugin {
     }
 
     private void setupHandlers() {
-        townHandler = new TownHandler();
+        townHandler = new TownHandler(this);
         menuHandler = new MenuHandler(this);
         if (Bukkit.getPluginManager().getPlugin("SuperMobCoins") != null) {
             coinHandler = new SuperMobCoinsHandler();

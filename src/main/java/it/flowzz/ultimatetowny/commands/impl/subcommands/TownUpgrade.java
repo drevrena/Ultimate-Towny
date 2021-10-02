@@ -26,11 +26,11 @@ public class TownUpgrade extends SubCommand {
                 sender.sendMessage(Messages.NOT_IN_TOWN.getTranslation());
                 return;
             }
-            if (townyPlayer.getRole() != Role.LEADER){
+            if (townyPlayer.getRole().isLessThan(Role.COLEADER)){
                 sender.sendMessage(Messages.NOT_LEADER.getTranslation());
                 return;
             }
-            plugin.getMenuHandler().getUpgradeMenu(town).open(player);
+            plugin.getMenuHandler().getUpgradeMenu(plugin, town).open(player);
             //Open Upgrade Menu
         } else {
             sender.sendMessage(Messages.COMMAND_ONLY_PLAYER.getTranslation());

@@ -37,6 +37,7 @@ public class TownCommand implements CommandExecutor, TabCompleter {
         subCommands.add(new TownWarp());
         subCommands.add(new TownSetWarp());
         subCommands.add(new TownDeleteWarp());
+        subCommands.add(new TownRate());
         subCommands.add(new TownRecruit());
         subCommands.add(new TownUpgrade());
         subCommands.add(new TownTop());

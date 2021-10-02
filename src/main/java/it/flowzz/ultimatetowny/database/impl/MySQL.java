@@ -7,6 +7,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import it.flowzz.ultimatetowny.UltimateTownyPlugin;
 import it.flowzz.ultimatetowny.database.IDatabase;
 import it.flowzz.ultimatetowny.database.credentials.Credentials;
+import it.flowzz.ultimatetowny.models.Rate;
 import it.flowzz.ultimatetowny.models.Town;
 import it.flowzz.ultimatetowny.models.TownyPlayer;
 import it.flowzz.ultimatetowny.models.Upgrade;
@@ -59,6 +60,12 @@ public class MySQL implements IDatabase {
                     INDEX townyx_players_ind (town_Id),
                     FOREIGN KEY (town_id) REFERENCES townyx_towns(name)
                     ON DELETE CASCADE, PRIMARY KEY (town_id, upgrade))""");
+            //RatingsTable
+            connection.createStatement().execute("""
+                    CREATE TABLE IF NOT EXISTS townyx_ratings (town_id VARCHAR(16), player VARCHAR(36), rate INT,\s
+                    INDEX townyx_players_ind (town_Id),
+                    FOREIGN KEY (town_id) REFERENCES townyx_towns(name)
+                    ON DELETE CASCADE, PRIMARY KEY (town_id, player))""");
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
@@ -80,10 +87,12 @@ public class MySQL implements IDatabase {
             ResultSet townResult = connection.createStatement().executeQuery("SELECT * FROM townyx_towns");
             PreparedStatement playerStatement = connection.prepareStatement("SELECT uuid,town_id,name,role,playtime FROM townyx_players WHERE town_id=?");
             PreparedStatement upgradeStatement = connection.prepareStatement("SELECT upgrade,level FROM townyx_upgrades WHERE town_id=?");
+            PreparedStatement ratingStatement = connection.prepareStatement("SELECT player,rate FROM townyx_ratings WHERE town_id=?");
             while (townResult.next()) {
                 String townId = townResult.getString("name");
                 Set<TownyPlayer> players = Sets.newHashSet();
                 Set<Upgrade> upgrades = Sets.newHashSet();
+                Set<Rate> rates = Sets.newHashSet();
                 //Load Town Players
                 playerStatement.setString(1, townId);
                 ResultSet playersResult = playerStatement.executeQuery();
@@ -96,8 +105,14 @@ public class MySQL implements IDatabase {
                 while (upgradesResult.next()) {
                     upgrades.add(new Upgrade(upgradesResult));
                 }
+                //Load Town ratings
+                ratingStatement.setString(1, townId);
+                ResultSet ratingResult = ratingStatement.executeQuery();
+                while (ratingResult.next()) {
+                    rates.add(new Rate(ratingResult));
+                }
                 //Load Town Information
-                plugin.getTownHandler().getTowns().put(townId, new Town(townResult, townId, players, upgrades));
+                plugin.getTownHandler().getTowns().put(townId, new Town(townResult, townId, players, upgrades, rates));
                 //Map players to TownyPlayers
                 players.forEach(townyPlayer -> plugin.getTownHandler().getPlayers().put(townyPlayer.getUuid(), townyPlayer));
                 count++;
@@ -121,6 +136,7 @@ public class MySQL implements IDatabase {
             PreparedStatement townStatement = connection.prepareStatement("INSERT INTO townyx_towns (name, warp, money, coins) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE warp=VALUES(warp), money=VALUES(money), coins=VALUES(coins)");
             PreparedStatement playersStatement = connection.prepareStatement("INSERT INTO townyx_players (uuid, town_id, name, role, playtime) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE name=VALUES(name), town_id=VALUES(town_id), role=VALUES(role), playtime=VALUES(playtime)");
             PreparedStatement upgradesStatement = connection.prepareStatement("INSERT INTO townyx_upgrades (town_id, upgrade, level) VALUES (?,?,?) ON DUPLICATE KEY UPDATE level=VALUES(level)");
+            PreparedStatement ratingStatement = connection.prepareStatement("INSERT INTO townyx_ratings (town_id, player, rate) VALUES (?,?,?) ON DUPLICATE KEY UPDATE rate=VALUES(rate)");
 
             for (Town town : plugin.getTownHandler().getTowns().values()) {
                 townStatement.setString(1, town.getName());
@@ -134,6 +150,13 @@ public class MySQL implements IDatabase {
                     upgradesStatement.setString(2, upgrade.getType().name());
                     upgradesStatement.setInt(3, upgrade.getLevel());
                     upgradesStatement.addBatch();
+                }
+                //Save Town ratings
+                for (Rate rate : town.getRatings()) {
+                    ratingStatement.setString(1, town.getName());
+                    ratingStatement.setString(2, rate.getPlayer().toString());
+                    ratingStatement.setInt(3, rate.getRating());
+                    ratingStatement.addBatch();
                 }
                 count++;
             }
@@ -149,6 +172,7 @@ public class MySQL implements IDatabase {
             townStatement.executeBatch();
             playersStatement.executeBatch();
             upgradesStatement.executeBatch();
+            ratingStatement.executeBatch();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }

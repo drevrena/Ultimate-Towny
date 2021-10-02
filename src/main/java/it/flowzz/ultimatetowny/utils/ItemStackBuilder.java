@@ -20,6 +20,7 @@ import java.util.List;
 public class ItemStackBuilder {
 
     private Material material;
+    private int amount;
     private String name;
     private List<String> lore;
 
@@ -28,6 +29,7 @@ public class ItemStackBuilder {
         List<String> newLore = Lists.newArrayList();
         List<String> oldLore = configurationSection.getStringList("lore");
         String name = configurationSection.getString("name");
+        int amount = configurationSection.getInt("amount", 1);
 
         for (String line : oldLore) {
             for (Placeholder placeholder : placeholders) {
@@ -43,13 +45,14 @@ public class ItemStackBuilder {
         return builder()
                 .material(Material.getMaterial(configurationSection.getString("id")))
                 .name(name)
+                .amount(amount)
                 .lore(newLore.isEmpty() ? oldLore : newLore)
                 .build()
                 .toItem();
     }
 
     public ItemStack toItem() {
-        ItemStack result = new ItemStack(material);
+        ItemStack result = new ItemStack(material, amount);
         ItemMeta resultMeta = result.getItemMeta();
         resultMeta.displayName(Component.text(ChatColor.translateAlternateColorCodes('&', name)));
         List<Component> newLore = Lists.newArrayList();

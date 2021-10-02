@@ -34,7 +34,7 @@ public class TownDemote extends SubCommand {
                 sender.sendMessage(Messages.NOT_IN_TOWN.getTranslation());
                 return;
             }
-            if (townyPlayer.getRole() != Role.LEADER) {
+            if (townyPlayer.getRole().isLessThan(Role.COLEADER)) {
                 sender.sendMessage(Messages.NOT_LEADER.getTranslation());
                 return;
             }
@@ -46,8 +46,11 @@ public class TownDemote extends SubCommand {
                 sender.sendMessage(Messages.ALREADY_MEMBER.getTranslation());
                 return;
             }
-            target.setRole(Role.MEMBER);
-            broadcast(Messages.PLAYER_DEMOTED.getTranslation().replace("%player%", target.getName()), town.getPlayers());
+            target.setRole(target.getRole() == Role.COLEADER ? Role.MODERATOR : Role.MEMBER);
+            broadcast(Messages.PLAYER_DEMOTED.getTranslation()
+                            .replace("%player%", target.getName())
+                            .replace("%rankt%", target.getRole().getTranslation()),
+                    town.getPlayers());
         } else {
             sender.sendMessage(Messages.COMMAND_ONLY_PLAYER.getTranslation());
         }

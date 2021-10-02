@@ -31,7 +31,7 @@ public class TownSetWarp extends SubCommand {
                 sender.sendMessage(Messages.WARP_ALREADY_SET.getTranslation());
                 return;
             }
-            if (townyPlayer.getRole() == Role.MEMBER) {
+            if (townyPlayer.getRole().isLessThan(Role.MODERATOR)) {
                 sender.sendMessage(Messages.NO_PERMISSION.getTranslation());
                 return;
             }

@@ -34,7 +34,7 @@ public class TownKick extends SubCommand {
                 return;
             }
             Role senderRole = townyPlayer.getRole();
-            if (senderRole == Role.MEMBER) {
+            if (senderRole.isLessThan(Role.MODERATOR)) {
                 sender.sendMessage(Messages.NOT_MODERATOR.getTranslation());
                 return;
             }

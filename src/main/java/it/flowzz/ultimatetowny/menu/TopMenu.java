@@ -14,18 +14,22 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class TopMenu extends AbstractMenu implements InventoryProvider {
+public class TopMenu extends AbstractMenu {
+
+    public TopMenu(UltimateTownyPlugin plugin) {
+        super(plugin);
+    }
 
     @Override
     public void init(Player player, InventoryContents contents) {
-        ConfigurationSection itemSection = config.getConfigurationSection("menus.top.items");
+        ConfigurationSection itemSection = plugin.getConfig().getConfigurationSection("menus.top.items");
         for (String slot : itemSection.getKeys(false)) {
             int index = getIndex(slot);
             if (index == -999)
                 continue;
             contents.set(getSlot(index), ClickableItem.empty(ItemStackBuilder.fromConfig(itemSection.getCurrentPath() + "." + slot)));
         }
-        List<Town> topTowns = UltimateTownyPlugin.getInstance().getTownHandler().getTopTowns();
+        List<Town> topTowns = plugin.getTownHandler().getTopTowns();
         String[] positions = new String[]{"first", "second", "third", "fourth", "fifth"};
         for (int i = 0; i < positions.length; i++) {
             String position = positions[i];
@@ -55,13 +59,8 @@ public class TopMenu extends AbstractMenu implements InventoryProvider {
         }
     }
 
-    @Override
-    public void update(Player player, InventoryContents contents) {
-        //We do not need a dynamic menu
-    }
-
     private TownyPlayer getTopPlayer(Town town, int position) {
-        List<TownyPlayer> topPlayers = UltimateTownyPlugin.getInstance().getTownHandler().getTopPlaytime().get(town);
+        List<TownyPlayer> topPlayers = plugin.getTownHandler().getTopPlaytime().get(town);
         if (topPlayers.size() - 1 >= position)
             return topPlayers.get(position);
         return null;
